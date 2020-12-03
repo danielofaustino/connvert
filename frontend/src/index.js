@@ -1,13 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+import "bootstrap/dist/css/bootstrap.min.css";
+import {BrowserRouter, Switch, Route} from "react-router-dom";
+import  { Home }  from "./pages/Home";
+import  { Debts }  from "./pages/Debts";
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <BrowserRouter>
+    <Switch>
+        <Route path="/" component={Home} exact />
+        <Route path="/debts" component={Debts} />
+    </Switch>
+  </BrowserRouter>,
   document.getElementById('root')
 );
 
