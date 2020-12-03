@@ -3,26 +3,17 @@ const { uuid, isUuid } = require('uuidv4');
 
 const app = express();
 
+
+// To use Json
 app.use(express.json());
 
-
-/*
-
-{
-  "id":1,
-  "client":2,
-  "reason":"credit card",
-  "value":250.00,
-  "date":"03-12-2020"
-}
-
-*/
-
+// Variable to receive debts simulating a database
 const debts = [];
 
 
 //Middlewares
 
+// logRequest show in the console the method called in each backend action
 function logRequests(req,res, next) {
   const { method, url} = req;
 
@@ -36,6 +27,7 @@ function logRequests(req,res, next) {
   console.timeEnd(logLabel)
 }
 
+// "validateDebt" make a test , to confirm if id already exist.
 function validateDebtId(req,res, next){
   const { id } = req.params;
 
@@ -45,14 +37,19 @@ function validateDebtId(req,res, next){
   return next();
 }
 
+// appling middleware "loRequests" to all routes declared below.
 app.use(logRequests);
+
+// appling middleware "validateDebtId, to routes that are == '/debts/:id"
 app.use('/debts/:id', validateDebtId);
 
-// routes: /debts
+
+//routes:
 
 
 // 1 Add a new debt
 app.post('/debts', (req, res) =>{
+
   const { client, reason, value, date } = req.body;
 
   debt = {id_debt: uuid(), client, reason, value, date}
@@ -64,7 +61,7 @@ app.post('/debts', (req, res) =>{
 })
 
 
-//2 - get all debts related to a specified client
+//2 - Show all debts related to a specified client
 app.get('/debts', (req, res) => {
 
   const { client } = req.query;
@@ -79,6 +76,7 @@ app.get('/debts', (req, res) => {
 
 })
 
+//3 receive informations about a specified debt
 app.get('/debts/:id', (req, res) =>{
   const { id } = req.params;
 
