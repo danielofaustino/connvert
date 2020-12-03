@@ -16,12 +16,12 @@ class FormDebts extends Component {
     render(){
       return(
       <div className="container">
-        <form action="http://localhost:3333/debts" method="post" novalidate>
+        <form action="http://localhost:3333/debts" method="post">
         
         
           <select className="api" name="client">
             {this.state.clients.map(client =>(
-              <option name="client" value={client.id}>{client.name}</option>
+              <option name="client" key={client.id}>{client.name}</option>
             ))}
               
             </select>
