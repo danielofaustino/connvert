@@ -3,7 +3,9 @@ const { uuid, isUuid } = require('uuidv4');
 
 const app = express();
 
-
+app.use(express.urlencoded({
+  extended: true
+}))
 // To use Json
 app.use(express.json());
 
@@ -49,14 +51,14 @@ app.use('/debts/:id', validateDebtId);
 
 // 1 Add a new debt
 app.post('/debts', (req, res) =>{
-
+ 
   const { client, reason, value, date } = req.body;
-
+  
   debt = {id_debt: uuid(), client, reason, value, date}
-
+  
   debts.push(debt)
 
-  return res.json(debts)
+  res.redirect('http://localhost:3000/')
 
 })
 
