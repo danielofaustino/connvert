@@ -1,0 +1,19 @@
+.FormsDebts{
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input{
+  width: 200px;
+  height:30px;
+  font-size: 20px;
+}
+
+button{
+  margin-top: 2%;
+  border-style: outset;
+}
+
