@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Axios from 'axios';
+import axios from "axios";
 import "./FormsDebts.css";
 
 function FormsDebts() {
@@ -11,13 +11,19 @@ function FormsDebts() {
   
   const addDebt = () =>{
     console.log(clientName,debtReason,debtValue,debtDate)
-    Axios.post("http://localhost:3001/debt", {
+    axios.post("http://localhost:3001/debts", {
 
       clientName: clientName,
       debtReason: debtReason,
       debtValue: debtValue,
       debtDate: debtDate
 
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
     });
 
   }

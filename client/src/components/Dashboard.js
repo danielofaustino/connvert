@@ -1,38 +1,33 @@
-import React, { Component } from 'react';
-
+import React, {useState,useEffect} from 'react';
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./Dashboard.css"
 
 
 
-class Dashboard extends Component {
+const Dashboard = () => {
 
-  state = { debts: [] };
+  const [debtList, setDebtList] = useState([]);
 
-  async componentDidMount() {
-       
-      let result = await axios.get("http://localhost:3333/dashboard")
-      console.log(result)
-      this.setState({debts: result.data});
-      
-  }
-    render(){
-      return(
-      <div className="container">
-       
-        
-        
-          <ul>
-            {this.state.debts.map(debt =>(
-              <li  key={debt.id_debt}>{debt.reason}<br/>{debt.client}<br/>{debt.value}<br/>{debt.date}</li>
-              
-              
-            ))}
-              
-           </ul>
-        
-      </div>
-    );
+  useEffect(() =>{
+    axios.get('http://localhost:3001/dashboard').then((response) =>{
+      setDebtList(response.data)
+    });
+  },[]);
+
+  return (
+    <>
+
+      { debtList.map((val,key) =>{
+        return <div key={key} className="debtList">
+
+                    <h6>{val.clientName}</h6><h6>{val.debtReason}</h6>
+                    <button> Deletar</button>
+            
+                </div>
+      })}
+     
+    </>
+  );
 }
-}
-
 export default Dashboard;

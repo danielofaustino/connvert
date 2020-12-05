@@ -13,6 +13,7 @@ app.use(cors());
 
 moongoose.connect('mongodb+srv://danielofaustino:LinuxBR951@cluster0.izb07.gcp.mongodb.net/debts?retryWrites=true&w=majority',{
   useNewUrlParser: true,
+  useUnifiedTopology:true
 });
 
 
@@ -50,10 +51,10 @@ app.use(logRequests);
 // 1 Add a new debt
 app.post('/debts', async (req, res) =>{
  
-  const clientName = req.body.clientName
-  const debtReason = req.body.debtReason
-  const debtValue = req.body.debtValue
-  const debtDate = req.body.debtDate
+  const clientName = req.body.clientName;
+  const debtReason = req.body.debtReason;
+  const debtValue = req.body.debtValue;
+  const debtDate = req.body.debtDate;
 
   const debt = new DebtsModel({
     clientName: clientName,
@@ -64,31 +65,32 @@ app.post('/debts', async (req, res) =>{
 
   try{
     await debt.save();
-    res.json("message: enviado")
+    res.json("Debt sent")
   } catch (error){
     console.log(error);
   }
 
 })
 
-app.get('/', async (req, res) =>{
- 
-  const debt = new DebtsModel({ clientName: "Daniel Faustino", debtReason:"Credit Card", debtValue:200.00,debtDate:"2020-12-04"});
+app.get('/dashboard', async (req, res) =>{
+  DebtsModel.find({}, (err, result) => {
+    if(err){
+      res.send(err);
 
-  try{
-    await debt.save();
-    res.json("message: enviado")
-  } catch (err){
-    console.log(err);
-  }
+    }
+
+    res.send(result)
+  });
 
 
 })
 
 
 //2 - Show all debts related to a specified client
-app.get('/debts', (req, res) => {
+app.get('/debts/:clientName', (req, res) => {
+  const { client } = clientName.params;
 
+DebtsModel.find({$where: {clientName:client}})
   
 
 })
