@@ -1,6 +1,6 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import "./FormsDebts.css";
+
 
 function FormsDebts() {
 
@@ -21,7 +21,6 @@ function FormsDebts() {
     })
     .then(function (response) {
       console.log(response);
-      return window.location ='http://localhost:3000'
     })
     .catch(function (error) {
       console.log(error);
@@ -29,34 +28,15 @@ function FormsDebts() {
 
   }
 
-
-// useState to receive users from JsonPlaceholderApi
-const [jsonUsers, setJsonUsers] = useState([]);
-
-// 
-useEffect(() =>{
-  axios.get('https://jsonplaceholder.typicode.com/users').then((response) =>{
-    setJsonUsers(response.data)
-  });
-},[]);
-
-
   return(
-
-
     <div className="FormsDebts">
       
-
-    
       <label> Nome do Cliente: </label>
-      <select type="text"  onChange={(event)=>{
+      <input type="text" value={clientName} onChange={(event)=>{
         setClientName(event.target.value);
-      }}>
-        { jsonUsers.map((val,key) =>{
-        return <option value={val.name}>{val.name}</option>
-        })}
-      </select> 
-      
+      }}
+      />
+      <button className="btn btn-dark" onClick={ addDebt }>Adicionar a Dívida</button>
 
       <label> Motivo: </label>
       <input type="text" 

@@ -106,8 +106,27 @@ app.get('/debts/:id', (req, res) =>{
 
 
 //4 Change some debt information
-app.put('/debts/:id', (req, res) =>{
+app.put('/debts/:id', async(req, res) =>{
+  const id  = req.params.id;
+  const clientName = req.body.clientName;
+  const debtReason = req.body.debtReason;
+  const debtValue = req.body.debtValue;
+  const debtDate = req.body.debtDate;
   
+
+  try{
+    await DebtsModel.findById(id, (error,debtToUpdate) =>{
+    debtToUpdate.clientName = clientName;
+    debtToUpdate.debtReason = debtReason;
+    debtToUpdate.debtValue = debtValue;
+    debtToUpdate.debtDate = debtDate;
+    debtToUpdate.save()
+
+    });
+  }catch(err){
+    console.log(err)
+  }
+  res.send("Updated")
 
 })
 
@@ -115,8 +134,12 @@ app.put('/debts/:id', (req, res) =>{
 
 
 //5 Delete a debt register
-app.delete('/debts/:id', (req, res) =>{
+app.delete('/debts/:id', async(req, res) =>{
 
+  const id  = req.params.id;
+
+  await DebtsModel.findByIdAndRemove(id).exec();
+  res.send("Deleted")
 
 
 })

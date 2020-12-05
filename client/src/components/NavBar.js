@@ -17,8 +17,7 @@ const NavBar = () => {
         <div className="navbar-nav">
         <a className="nav-link active" href="/">Dashboard <span className="sr-only">(current)</span></a>
             <a className="nav-link active" href="/debts">Cadastrar Dívidas <span className="sr-only">(current)</span></a>
-            <a className="nav-link active" href="/editdebts">Editar Dívidas <span className="sr-only">(current)</span></a>
-            <a className="nav-link active" href="/debts">Excluir Dívidas <span className="sr-only">(current)</span></a>
+            
         </div>
         </div>
     </nav>

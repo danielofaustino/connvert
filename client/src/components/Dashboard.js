@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Dashboard.css"
 
 
+let idEditar = ""
 
 const Dashboard = () => {
 
@@ -15,18 +16,142 @@ const Dashboard = () => {
     });
   },[]);
 
+  // useState to receive users from JsonPlaceholderApi
+const [jsonUsers, setJsonUsers] = useState([]);
+
+// 
+useEffect(() =>{
+  axios.get('https://jsonplaceholder.typicode.com/users').then((response) =>{
+    setJsonUsers(response.data)
+  });
+},[]);
+
+
+  const [ clientName, setClientName] = useState("");
+  const [ debtReason, setDebtReason] = useState("");
+  const [ debtValue, setDebtValue] = useState(0);
+  const [ debtDate, setDebtDate] = useState("");
+
+  
+  const handleId =(id) =>{
+    idEditar = id;
+    
+  }
+
+
+ const handleUpdateDebt =() =>{
+
+   axios.put(`http://localhost:3001/debts/${idEditar}`, {
+
+    clientName: clientName,
+    debtReason: debtReason,
+    debtValue: debtValue,
+    debtDate: debtDate
+
+  })
+  .then(()=>{
+    
+      return window.location ='http://localhost:3000'
+      
+    })
+    
+   
+   
+ };
+
+
+ const handleDeleteDebt = (id) =>{
+   axios.delete(`http://localhost:3001/debts/${id}`).then(()=>{
+    setDebtList(debtList.filter((val)=>{
+      return val._id !== id;
+    })
+    );
+   })
+   
+ };
+
   return (
     <>
 
-      { debtList.map((val,key) =>{
-        return <div key={key} className="debtList">
-
-                    <h6>{val.clientName}</h6><h6>{val.debtReason}</h6>
-                    <button> Deletar</button>
+      <table className="table text-white bg-primary table-hover">
+                <thead >
+                <tr>
+                  <th scope="col">CLIENTE</th>
+                  <th scope="col">MOTIVO</th>
+                  <th scope="col">VALOR</th>
+                  <th scope="col">DATA</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+                </thead>
+                { debtList.map((val,key) =>{
+        
+                  return  <tbody key={key}>
+                      
+                        <tr>
+                        <th scope="row">{val.clientName}</th>
+                        
+                        <td>{val.debtReason}</td>
+                        <td>R$ {val.debtValue}</td>
+                        <td>{val.debtDate}</td>
+                        <td><button  type="button" onClick={handleId(val._id)} className="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">Editar</button></td>
+          
+                        <td><button onClick={() =>handleDeleteDebt(val._id)} className="btn btn-dark"> Deletar</button></td>
+                       </tr>
+                      
+                       </tbody>
+                       })}
             
-                </div>
-      })}
+                </table>
+      
+                <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div className="modal-dialog modal-dialog-centered" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+
+              <div className="FormsDebts">
+                <label> Nome do Cliente: </label>
+              <select type="text"  onChange={(event)=>{
+                setClientName(event.target.value);
+              }}>
+                { jsonUsers.map((val,key) =>{
+                return <option value={val.name}>{val.name}</option>
+                })}
+              </select> 
+              
+              
+              <label> Motivo: </label>
+              <input type="text" 
+              onChange={(event)=>{
+                setDebtReason(event.target.value);
+              }}/>
+
+              <label> Valor: </label>
+              <input type="number" onChange={(event)=>{
+                setDebtValue(event.target.value);
+              }}/>
+
+              <label> Data: </label>
+              <input type="date" onChange={(event)=>{
+                setDebtDate(event.target.value);
+              }}/>
+              </div>
+              </div>
+              <div className="modal-footer">
+                <button type="button" className="btn btn-dark" data-dismiss="modal">Fechar</button>
+                <button type="button" onClick={handleUpdateDebt} className="btn btn-dark" data-dismiss="modal">Salvar</button>
+              </div>
+            </div>
+          </div>
+        </div>
      
+        
     </>
   );
 }
