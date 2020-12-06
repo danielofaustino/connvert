@@ -5,6 +5,7 @@ import "./Dashboard.css"
 
 
 let idEditar = "";
+let PORT = "";
 
 
 const Dashboard = () => {
@@ -12,7 +13,7 @@ const Dashboard = () => {
   const [debtList, setDebtList] = useState([]);
 
   useEffect(() =>{
-    axios.get('http://localhost:3001/dashboard').then((response) =>{
+    axios.get(`${PORT}/dashboard`).then((response) =>{
       setDebtList(response.data)
     });
   },[]);
@@ -42,7 +43,7 @@ useEffect(() =>{
 
  const handleUpdateDebt =() =>{
 
-   axios.put(`http://localhost:3001/debts/${idEditar}`, {
+   axios.put(`${PORT}/debts/${idEditar}`, {
 
     clientName: clientName,
     debtReason: debtReason,
@@ -62,7 +63,7 @@ useEffect(() =>{
 
 
  const handleDeleteDebt = (id) =>{
-   axios.delete(`http://localhost:3001/debts/${id}`).then(()=>{
+   axios.delete(`${PORT}/debts/${id}`).then(()=>{
     setDebtList(debtList.filter((val)=>{
       return val._id !== id;
     })
