@@ -3,6 +3,7 @@ const moongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
+const PORT = process.env.PORT || 3001;
 
 const DebtsModel = require("../models/Debt")
 
@@ -149,6 +150,6 @@ app.delete('/debts/:id', async(req, res) =>{
 
 
 
-app.listen(3001,() => {
-  console.log('Back-end Started 🚀')
+app.listen(PORT,() => {
+  console.log(`Back-end Started on port: ${PORT} 🚀`)
 });
