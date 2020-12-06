@@ -4,7 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./Dashboard.css"
 
 
-let idEditar = ""
+let idEditar = "";
+
 
 const Dashboard = () => {
 
@@ -33,7 +34,7 @@ useEffect(() =>{
   const [ debtDate, setDebtDate] = useState("");
 
   
-  const handleId =(id) =>{
+  const handleId =(id )=>{
     idEditar = id;
     
   }
@@ -93,7 +94,7 @@ useEffect(() =>{
                         
                         <td>{val.debtReason}</td>
                         <td>R$ {val.debtValue}</td>
-                        <td>{val.debtDate}</td>
+                        <td>{val.debtDate.substring(0,10)}</td>
                         <td><button  type="button" onClick={handleId(val._id)} className="btn btn-dark" data-toggle="modal" data-target="#exampleModalCenter">Editar</button></td>
           
                         <td><button onClick={() =>handleDeleteDebt(val._id)} className="btn btn-dark"> Deletar</button></td>
@@ -104,11 +105,11 @@ useEffect(() =>{
             
                 </table>
       
-                <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+          <div className="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div className="modal-dialog modal-dialog-centered" role="document">
             <div className="modal-content">
               <div className="modal-header">
-                <h5 className="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                <h5 className="modal-title" id="exampleModalLongTitle">Editar Registro</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -140,7 +141,7 @@ useEffect(() =>{
               <label> Data: </label>
               <input type="date" onChange={(event)=>{
                 setDebtDate(event.target.value);
-              }}/>
+              }} />
               </div>
               </div>
               <div className="modal-footer">

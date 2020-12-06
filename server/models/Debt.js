@@ -16,6 +16,8 @@ const DebtSchema = new mongoose.Schema({
     debtDate:{
         type: Date,
         required:true,
+        min: '2020-12-07',
+        max: '2021-12-07'
     }
 })
 

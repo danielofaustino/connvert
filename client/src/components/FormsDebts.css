@@ -7,9 +7,9 @@
 }
 
 input{
-  width: 200px;
-  height:30px;
-  font-size: 20px;
+  width: 300px;
+  height:50px;
+  text-align: center;
 }
 
 button{
@@ -17,3 +17,18 @@ button{
   border-style: outset;
 }
 
+select{
+  width: 300px;
+  height:50px;
+  
+}
+
+option{
+  font-size: medium;
+  text-align: center;
+ 
+}
+
+label{
+  padding-top: 1%;
+}

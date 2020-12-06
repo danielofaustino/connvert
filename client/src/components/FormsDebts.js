@@ -10,7 +10,7 @@ function FormsDebts() {
   const [ debtDate, setDebtDate] = useState("");
   
   const addDebt = () =>{
-    console.log(clientName,debtReason,debtValue,debtDate)
+    
     axios.post("http://localhost:3001/debts", {
 
       clientName: clientName,

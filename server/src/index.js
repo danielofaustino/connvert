@@ -9,6 +9,8 @@ const DebtsModel = require("../models/Debt")
 
 // To use Json
 app.use(express.json());
+
+
 app.use(cors());
 
 moongoose.connect('mongodb+srv://danielofaustino:LinuxBR951@cluster0.izb07.gcp.mongodb.net/debts?retryWrites=true&w=majority',{
@@ -87,16 +89,16 @@ app.get('/dashboard', async (req, res) =>{
 
 
 //2 - Show all debts related to a specified client
-app.get('/debts/:clientName', (req, res) => {
-  const { client } = clientName.params;
+app.get('/debts/:id', async(req, res) => {
+  const { id } = id.params;
 
-DebtsModel.find({$where: {clientName:client}})
+DebtsModel.find({$where: {clientId:id}})
   
 
 })
 
 //3 receive informations about a specified debt
-app.get('/debts/:id', (req, res) =>{
+app.get('/debts/:id', async(req, res) =>{
 
 
 })

@@ -2,7 +2,7 @@ import React from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavBar from '../components/NavBar';
 import Dashboard from '../components/Dashboard'
-
+import Footer from '../components/Footer'
 
 export const Home = () => {
 
@@ -11,7 +11,7 @@ export const Home = () => {
     <>
       <NavBar />
       <Dashboard />
-      
+      <Footer />
      
     </>
   );
