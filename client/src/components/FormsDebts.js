@@ -2,7 +2,6 @@ import React, { useState,useEffect } from "react";
 import axios from "axios";
 import "./FormsDebts.css";
 
-let PORT = "https://debts-connvert-server.herokuapp.com/";
 
 function FormsDebts() {
 
@@ -13,7 +12,7 @@ function FormsDebts() {
   
   const addDebt = () =>{
     
-    axios.post(`${PORT}/debts`, {
+    axios.post(`https://localhost:3000/debts`, {
 
       clientName: clientName,
       debtReason: debtReason,
@@ -23,7 +22,7 @@ function FormsDebts() {
     })
     .then(function (response) {
       console.log(response);
-      return window.location ='https://debts-connvert-client.herokuapp.com/'
+      return window.location ='https://localhost:3000/'
     })
     .catch(function (error) {
       console.log(error);

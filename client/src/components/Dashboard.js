@@ -5,7 +5,7 @@ import "./Dashboard.css"
 
 
 let idEditar = "";
-let PORT = "";
+
 
 
 const Dashboard = () => {
@@ -13,7 +13,7 @@ const Dashboard = () => {
   const [debtList, setDebtList] = useState([]);
 
   useEffect(() =>{
-    axios.get(`${PORT}/dashboard`).then((response) =>{
+    axios.get("https://localhost:3001/debts/dashboard").then((response) =>{
       setDebtList(response.data)
     });
   },[]);
@@ -43,7 +43,7 @@ useEffect(() =>{
 
  const handleUpdateDebt =() =>{
 
-   axios.put(`${PORT}/debts/${idEditar}`, {
+   axios.put("https://localhost:3001/debts/${idEditar}", {
 
     clientName: clientName,
     debtReason: debtReason,
@@ -53,7 +53,7 @@ useEffect(() =>{
   })
   .then(()=>{
     
-      return window.location ='http://localhost:3000'
+      return window.location ='https://localhost:3000'
       
     })
     
@@ -63,7 +63,7 @@ useEffect(() =>{
 
 
  const handleDeleteDebt = (id) =>{
-   axios.delete(`${PORT}/debts/${id}`).then(()=>{
+   axios.delete(`https://debts-connvert-client.herokuapp.com/debts/${id}`).then(()=>{
     setDebtList(debtList.filter((val)=>{
       return val._id !== id;
     })
