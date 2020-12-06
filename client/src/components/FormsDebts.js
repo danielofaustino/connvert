@@ -12,7 +12,7 @@ function FormsDebts() {
   
   const addDebt = () =>{
     
-    axios.post(`https://localhost:3000/debts`, {
+    axios.post(`https://debts-connvert-server.herokuapp.com/debts`, {
 
       clientName: clientName,
       debtReason: debtReason,
@@ -22,7 +22,7 @@ function FormsDebts() {
     })
     .then(function (response) {
       console.log(response);
-      return window.location ='https://localhost:3000/'
+      return window.location ='https://debts-connvert-client.herokuapp.com/'
     })
     .catch(function (error) {
       console.log(error);
